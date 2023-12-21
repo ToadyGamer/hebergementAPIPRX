@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
-// app.listen(3000, () => {
-//     console.log('http://localhost:3000/')
-// })
+app.listen(3000, () => {
+    console.log('http://localhost:3000/')
+})
 
 //TEST DE MODIFICATION
 
@@ -14,6 +14,11 @@ const connection = mysql.createConnection({
 	database:'id21691480_prx'
 });
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://prorelax.000webhostapp.com/home');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 
 //=============================================GET LES INFOS=============================================
