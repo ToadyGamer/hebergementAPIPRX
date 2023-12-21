@@ -54,6 +54,7 @@ app.get("/stocks",(req,res) => {
     }
 });
 app.get("/magasins",(req,res) => {
+    console.log("La route /magasins est appelée.");
     const i=req.query.id;
     if(i){
         connection.query(`SELECT * FROM magasins WHERE idMagasin=${i}`, (err,rows) => 
@@ -67,11 +68,6 @@ app.get("/magasins",(req,res) => {
             if(!err) res.send(rows);
         })
     }
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
 });
 
 
