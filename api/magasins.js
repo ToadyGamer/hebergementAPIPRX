@@ -10,6 +10,7 @@ const connection = mysql.createConnection({
 });
 
 router.get("/", (req, res) => {
+    console.log("zz");
     const i = req.query.id;
 
     if (i) {
