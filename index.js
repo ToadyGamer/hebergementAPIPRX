@@ -54,7 +54,6 @@ app.get("/stocks",(req,res) => {
     }
 });
 app.get("/magasins",(req,res) => {
-    console.log("La route /magasins est appelée.");
     const i=req.query.id;
     if(i){
         connection.query(`SELECT * FROM magasins WHERE idMagasin=${i}`, (err,rows) => 
