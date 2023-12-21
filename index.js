@@ -1,78 +1,84 @@
-const express = require('express')
-const app = express()
-app.listen(3000, () => {
-    console.log('http://localhost:3000/')
-})
-
-//TEST DE MODIFICATION
-
+const express = require('express');
+const app = express();
 const mysql = require('mysql2');
+
 const connection = mysql.createConnection({
-	host:'https://databases.000webhost.com/index.php',
-	user:'id21691480_phonerelax',
-	password:'12ff663S!',
-	database:'id21691480_prx'
+  host: 'localhost', // Mettez localhost ici car Vercel exécute votre application sur son propre environnement.
+  user: 'id21691480_phonerelax',
+  password: '12ff663S!',
+  database: 'id21691480_prx'
 });
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'https://prorelax.000webhostapp.com/home');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
+  res.header('Access-Control-Allow-Origin', 'https://prorelax.000webhostapp.com');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
 });
-
 
 //=============================================GET LES INFOS=============================================
-app.get("/stocks",(req,res) => {
-    const i=req.query.id;
-    const l=req.query.libelle;
-    const lre=req.query.libelle_refinterne_ean;
-    const r=req.query.rachat;
-    const ra=req.query.rach;
-    const ean=req.query.ean;
-    const c=req.query.categorie;
-    const sc=req.query.souscategorie;
-    if(i != null) //voir si on met un parametre avec blablabla ?id=1
-    {
-        connection.query(`SELECT * FROM stocks WHERE idStock = ${i}`, (err,rows) => 
-        {
-            if(!err) res.send(rows);
-        })
-    }
-    else if (l != null){
-        connection.query(`SELECT * FROM stocks WHERE libelleStock LIKE '%${l}%' OR EANStock LIKE '%${l}%'`, (err,rows) => 
-        {
-            if(!err) res.send(rows);
-        })
-    }
-    else if (ra != null){
-        connection.query(`SELECT * FROM stocks WHERE rachatStock = '${ra}' AND EANStock = '${ean}'`, (err,rows) => 
-        {
-            if(!err) res.send(rows);
-        })
-    }
-    else
-    {
-        connection.query(`SELECT * FROM stocks WHERE (libelleStock LIKE '%${lre}%' OR refInterneStock LIKE '%${lre}%' OR EANStock LIKE '%${lre}%') AND rachatStock LIKE '%${r}%' AND categorie LIKE '%${c}%' AND sousCategorie LIKE '%${sc}%'`, (err,rows) =>
-        {
-            if(!err) res.send(rows);
-        })
-    }
+app.get("/stocks", (req, res) => {
+  const i = req.query.id;
+  const l = req.query.libelle;
+  const lre = req.query.libelle_refinterne_ean;
+  const r = req.query.rachat;
+  const ra = req.query.rach;
+  const ean = req.query.ean;
+  const c = req.query.categorie;
+  const sc = req.query.souscategorie;
+
+  if (i != null) {
+    connection.query(`SELECT * FROM stocks WHERE idStock = ${i}`, (err, rows) => {
+      if (!err) res.send(rows);
+      else res.status(500).send(err);
+    });
+  } else if (l != null) {
+    connection.query(`SELECT * FROM stocks WHERE libelleStock LIKE '%${l}%' OR EANStock LIKE '%${l}%'`, (err, rows) => {
+      if (!err) res.send(rows);
+      else res.status(500).send(err);
+    });
+  } else if (ra != null) {
+    connection.query(`SELECT * FROM stocks WHERE rachatStock = '${ra}' AND EANStock = '${ean}'`, (err, rows) => {
+      if (!err) res.send(rows);
+      else res.status(500).send(err);
+    });
+  } else {
+    connection.query(`SELECT * FROM stocks WHERE (libelleStock LIKE '%${lre}%' OR refInterneStock LIKE '%${lre}%' OR EANStock LIKE '%${lre}%') AND rachatStock LIKE '%${r}%' AND categorie LIKE '%${c}%' AND sousCategorie LIKE '%${sc}%'`, (err, rows) => {
+      if (!err) res.send(rows);
+      else res.status(500).send(err);
+    });
+  }
 });
-app.get("/magasins",(req,res) => {
-    const i=req.query.id;
-    if(i){
-        connection.query(`SELECT * FROM magasins WHERE idMagasin=${i}`, (err,rows) => 
-        {
-            if(!err) res.send(rows);
-        })
-    }
-    else{
-        connection.query(`SELECT * FROM magasins ORDER BY idMagasin ASC`, (err,rows) => 
-        {
-            if(!err) res.send(rows);
-        })
-    }
+
+app.get("/magasins", (req, res) => {
+  const i = req.query.id;
+  if (i) {
+    connection.query(`SELECT * FROM magasins WHERE idMagasin=${i}`, (err, rows) => {
+      if (!err) res.send(rows);
+      else res.status(500).send(err);
+    });
+  } else {
+    connection.query(`SELECT * FROM magasins ORDER BY idMagasin ASC`, (err, rows) => {
+      if (!err) res.send(rows);
+      else res.status(500).send(err);
+    });
+  }
 });
+
+// Port modifié pour être compatible avec Vercel
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Serveur en écoute sur le port ${PORT}`);
+});
+
+
+
+
+
+
+
+
+
+
 app.get("/categories",(req,res) => {
     connection.query(`SELECT * FROM categories`, (err,rows) => 
     {
