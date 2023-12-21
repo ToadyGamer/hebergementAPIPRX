@@ -1,5 +1,5 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
@@ -13,7 +13,7 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'https://prorelax.000webhostapp.com');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
-  });
+  });  
 
 
 //=============================================GET LES INFOS=============================================
@@ -69,7 +69,10 @@ app.get("/magasins",(req,res) => {
     }
 });
 
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 
 

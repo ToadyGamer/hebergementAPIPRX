@@ -1,18 +1,16 @@
 {
-  "name": "prxapi",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
-  "engines": {
-    "node": "18.x"
-  },
   "dependencies": {
     "express": "^4.18.2",
     "mysql2": "^3.6.1"
   },
+  "name": "prxapi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
   "author": "CASTELLIER Florian",
-  "license": "ISC"
+  "license": "ISC",
+  "description": ""
 }
