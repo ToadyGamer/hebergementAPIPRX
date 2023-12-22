@@ -3,10 +3,14 @@ const app = express();
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
-    host: "https://databases.000webhost.com/index.php?route=/import",
-    user: "id21691480_phonerelax",
-    password: "12ff663S!",
-    database: "id21691480_prx"
+    // host: "https://databases.000webhost.com/index.php?route=/import",
+    // user: "id21691480_phonerelax",
+    // password: "12ff663S!",
+    // database: "id21691480_prx"
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
   });
 
 app.use((req, res, next) => {
