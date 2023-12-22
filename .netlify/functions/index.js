@@ -19,9 +19,14 @@ app.use((req, res, next) => {
     next();
   });
 
+  exports.handler = async (event, context) => {
+    console.log("1");
+    // Ton code Express ici, adapté pour fonctionner comme une fonction serverless
+  };
 
 //=============================================GET LES INFOS=============================================
 app.get("/stocks",(req,res) => {
+    console.log("2");
     const i=req.query.id;
     const l=req.query.libelle;
     const lre=req.query.libelle_refinterne_ean;
