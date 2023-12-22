@@ -20,7 +20,7 @@ app.use((req, res, next) => {
   });
 
   exports.handler = async (event, context) => {
-    console.log("1");
+    return new Response("Hello, world!");
     // Ton code Express ici, adapté pour fonctionner comme une fonction serverless
   };
 
